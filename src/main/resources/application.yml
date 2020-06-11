@@ -1,0 +1,20 @@
+keycloak:
+  auth-server-url: http://localhost:8180/auth
+  public-client: true
+  realm: public-library-realm
+  resource: spring-boot-app-client
+  securityConstraints:
+    - authRoles:
+        - member-role
+        - librarian-role
+      securityCollections:
+        - name: member resource
+          patterns:
+            - /books
+    - authRoles:
+        - librarian-role
+      securityCollections:
+        - name: librarian resource
+          patterns:
+            - /manager
+  ssl-required: external

@@ -3,6 +3,8 @@ keycloak:
   public-client: true
   realm: public-library-realm
   resource: spring-boot-app-client
+  ssl-required: external
+  principal-attribute: preferred_username
   securityConstraints:
     - authRoles:
         - member-role
@@ -17,4 +19,3 @@ keycloak:
         - name: librarian resource
           patterns:
             - /manager
-  ssl-required: external

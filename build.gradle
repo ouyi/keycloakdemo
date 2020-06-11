@@ -33,20 +33,18 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	//implementation 'org.springframework.boot:spring-boot-devtools'
 
-	//implementation 'org.keycloak:keycloak-spring-boot-starter'
+	implementation 'org.keycloak:keycloak-spring-boot-starter'
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 }
 
-/*
 dependencyManagement {
 	imports {
 		mavenBom "org.keycloak.bom:keycloak-adapter-bom:${keycloakVersion}"
 	}
 }
-*/
 
 test {
 	useJUnitPlatform()

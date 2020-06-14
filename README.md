@@ -11,3 +11,16 @@ Start Keycloak instance:
 Start the demo application:
 
     ./gradlew bootRun
+
+Retrieve an access token:
+
+    curl -s -X POST "http://localhost:8180/auth/realms/public-library-realm/protocol/openid-connect/token" \
+        -H "Content-Type: application/x-www-form-urlencoded" \
+        -d "username=alice" \
+        -d "password=alice" \
+        -d "grant_type=password" \
+        -d "client_id=spring-boot-app-client"
+
+Use the token:
+
+    curl -i -X GET http://localhost:8080/private --header "Authorization: bearer $TOKEN"

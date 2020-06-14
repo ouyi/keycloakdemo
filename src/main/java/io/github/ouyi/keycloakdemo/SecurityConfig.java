@@ -33,11 +33,11 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
      */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
-        SimpleAuthorityMapper grantedAuthorityMapper = new SimpleAuthorityMapper();
-        grantedAuthorityMapper.setPrefix("ROLE_");
+//        SimpleAuthorityMapper grantedAuthorityMapper = new SimpleAuthorityMapper();
+//        grantedAuthorityMapper.setPrefix("ROLE_");
 
         KeycloakAuthenticationProvider keycloakAuthenticationProvider = keycloakAuthenticationProvider();
-        keycloakAuthenticationProvider.setGrantedAuthoritiesMapper(grantedAuthorityMapper);
+//        keycloakAuthenticationProvider.setGrantedAuthoritiesMapper(grantedAuthorityMapper);
         auth.authenticationProvider(keycloakAuthenticationProvider);
     }
 
@@ -74,8 +74,10 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         super.configure(http);
         http
             .authorizeRequests()
-            .antMatchers("/books").hasAnyRole("member-role", "librarian-role")
-            .antMatchers("/manager").hasRole("librarian-role")
+//            .antMatchers("/books").hasAnyRole("member-role", "librarian-role")
+//            .antMatchers("/manager").hasRole("librarian-role")
+            .antMatchers("/books").hasAnyAuthority("member-role", "librarian-role")
+            .antMatchers("/manager").hasAuthority("librarian-role")
             .anyRequest().permitAll();
     }
 }

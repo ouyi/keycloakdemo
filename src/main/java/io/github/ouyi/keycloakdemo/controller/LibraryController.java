@@ -51,6 +51,12 @@ public class LibraryController {
         return ResponseEntity.ok(bookRepository.readAll());
     }
 
+    @ResponseBody
+    @GetMapping(value = "/private", produces = "application/json")
+    public ResponseEntity<List<Book>> getPrivateBooks() {
+        return ResponseEntity.ok(bookRepository.readAll());
+    }
+
     @GetMapping(value = "/logout")
     public String logout(HttpServletRequest request) throws ServletException {
         request.logout();

@@ -1,12 +1,15 @@
 package io.github.ouyi.keycloakdemo.controller;
 
 
+import io.github.ouyi.keycloakdemo.model.Book;
 import io.github.ouyi.keycloakdemo.repository.BookRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +43,12 @@ public class LibraryController {
         configCommonAttributes(model, request);
         model.addAttribute("books", bookRepository.readAll());
         return "manager";
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/public", produces = "application/json")
+    public ResponseEntity<List<Book>> getPublicBooks() {
+        return ResponseEntity.ok(bookRepository.readAll());
     }
 
     @GetMapping(value = "/logout")

@@ -2,12 +2,16 @@ package io.github.ouyi.keycloakdemo.controller;
 
 
 import io.github.ouyi.keycloakdemo.repository.BookRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class LibraryController {
@@ -19,7 +23,8 @@ public class LibraryController {
     }
 
     @GetMapping(value = "/")
-    public String getHome() {
+    public String getHome(Model model, HttpServletRequest request) {
+        configCommonAttributes(model, request);
         return "index";
     }
 
@@ -44,7 +49,10 @@ public class LibraryController {
     }
 
     private void configCommonAttributes(Model model, HttpServletRequest request) {
-        model.addAttribute("name", request.getUserPrincipal().getName());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("name", authentication.getName());
+        List<String> authorities = authentication.getAuthorities().stream().map(e -> e.getAuthority()).collect(Collectors.toList());
+        model.addAttribute("auth", authorities);
     }
 
 }

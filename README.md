@@ -12,6 +12,14 @@ Start the demo application:
 
     ./gradlew bootRun
 
+Create realm, client, roles, groups, and users
+
+    realm: public-library-realm
+    client: spring-boot-app-client
+    roles: member-role, librarian-role (composite)
+    groups: reader, admin
+    users: alice:alice (reader), bob:bob (reader), chris:chris (admin)
+
 Retrieve an access token:
 
     curl -s -X POST "http://localhost:8180/auth/realms/public-library-realm/protocol/openid-connect/token" \
